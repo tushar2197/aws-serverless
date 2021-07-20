@@ -1,0 +1,24 @@
+service: aws-node-rest-api-typescript
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  environment:
+    NODE_ENV: dev
+
+plugins:
+  - serverless-plugin-typescript 
+  - serverless-offline
+
+package:
+  include:
+    - config/.env
+
+functions:
+  create:
+    handler: app/handler.create
+    events:
+      - http:
+          path: user
+          method: post
+ 
