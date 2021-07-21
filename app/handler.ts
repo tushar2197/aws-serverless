@@ -1,10 +1,10 @@
-import { Handler, Context } from "aws-lambda";
+import { Handler } from "aws-lambda";
 import dotenv from "dotenv";
 import path from "path";
-import { User } from "./models";
-import '../config/db'
+import { userModel } from "./models";
+import "../config/db";
 import { UserController } from "./controller/userController";
-const userController = new UserController(User);
+const userController = new UserController(userModel);
 const dotenvPath = path.join(
   __dirname,
   "../",
@@ -13,6 +13,6 @@ const dotenvPath = path.join(
 dotenv.config({
   path: dotenvPath,
 });
-export const create: Handler = (event: any, context: Context) => {
-  return userController.create(event, context);
+export const create: Handler = (event: any) => {
+  return userController.create(event);
 };

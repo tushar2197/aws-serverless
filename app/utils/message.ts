@@ -35,7 +35,7 @@ class Result {
   }
 }
 
-export class MessageUtil {
+class MessageUtil {
   static success(data: object): Response {
     const result = new Result(StatusCode.success, 0, 'success', data);
 
@@ -49,3 +49,5 @@ export class MessageUtil {
     return result.bodyToString();
   }
 }
+
+export default MessageUtil;

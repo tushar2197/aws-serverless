@@ -1,10 +1,10 @@
-import { Context } from "aws-lambda";
 import { Model } from "mongoose";
-import { MessageUtil } from "../utils/message";
-import { UserService } from "../service/userService";
-import { userDTO } from "../models/dto/userDTO";
+import { messageUtils, otpUtils } from "../utils";
+import userService from "../service/userService";
+import AuthService from "../service/authservice";
+import { userDto } from "../models";
 
-export class UserController extends UserService {
+export class UserController extends userService {
   constructor(user: Model<any>) {
     super(user);
   }
@@ -12,17 +12,24 @@ export class UserController extends UserService {
    * Create user
    * @param {*} event
    */
-  async create(event: any, context?: Context) {
-    console.log("functionName", context.functionName);
+  public async create(event: any) {
     try {
-      const params: userDTO = JSON.parse(event.body);
-      console.log('params :>> ', params);
-      const result = this.createUser(params);
-      return MessageUtil.success(result);
-    } catch (err) {
-      console.error(err);
+      const params: userDto = JSON.parse(event.body);
+      let result: any = await this.createUser(params);
+      if (result) {
+        const otp = await otpUtils.OTP();
+        await AuthService.createOtp(result._id, otp);
+        result = {
+          ...result,
+          otp,
+        };
 
-      return MessageUtil.error(err.code, err.message);
+        return await messageUtils.success(result);
+      } else {
+        throw new Error("user is not created");
+      }
+    } catch (err) {
+      return messageUtils.error(err.code, err.message);
     }
   }
 }

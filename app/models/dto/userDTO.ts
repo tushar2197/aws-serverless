@@ -1,4 +1,4 @@
-export class userDTO {
+export default class userDTO {
     mobileNo: string;
 }
   

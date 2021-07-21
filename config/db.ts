@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
-
 mongoose
-  .connect(`${process.env.DB_URL}${process.env.DB_NAME}`, {
+  .connect(`${process.env.DB_URL}${process.env.DB_name}`, {
     useNewUrlParser: true,
     useFindAndModify: false,
     useUnifiedTopology: true,
