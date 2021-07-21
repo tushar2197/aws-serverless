@@ -1,7 +1,7 @@
 // import jwt from "jsonwebtoken";
 import { authModel, authInterface } from "../models";
 class AuthService {
-  protected async createotp(userid, otp) {
+  async createotp(userid, otp) {
     try {
       let payload: authInterface = {
         otp,
@@ -41,6 +41,5 @@ class AuthService {
   //   }
   // }
 }
-
 
 export default AuthService;

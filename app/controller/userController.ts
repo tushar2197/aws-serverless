@@ -1,12 +1,12 @@
 import { Model } from "mongoose";
 import { messageUtils, otpUtils } from "../utils";
 import userService from "../service/userService";
-import AuthService from "../service/authservice";
+// import AuthService from "../service/authservice";
 import { userDto } from "../models";
-
 export class UserController extends userService {
   constructor(user: Model<any>) {
     super(user);
+    
   }
   /**
    * Create user
@@ -18,7 +18,7 @@ export class UserController extends userService {
       let result: any = await this.createUser(params);
       if (result) {
         const otp = await otpUtils.OTP();
-        await AuthService.createOtp(result._id, otp);
+        // await AuthService.createUser(result._id, otp);
         result = {
           ...result,
           otp,
