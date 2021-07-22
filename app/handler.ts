@@ -16,3 +16,7 @@ dotenv.config({
 export const create: Handler = (event: any) => {
   return userController.create(event);
 };
+
+export const verifyOTP: Handler = (event: any) => {
+  return userController.verifyOtp(event);
+};

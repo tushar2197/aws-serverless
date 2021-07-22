@@ -1,5 +1,5 @@
 import { Model } from "mongoose";
-import { userDto } from "../models";
+import { UserDTO } from "../models";
 
 class UserService {
   private user: Model<any>;
@@ -11,7 +11,7 @@ class UserService {
    * Create book
    * @param params
    */
-  protected async createUser(params: userDto): Promise<any> {
+  protected async createUser(params: UserDTO): Promise<any> {
     try {
       const { mobileNo } = params;
       const checkMobile: any = await this.findByMobileNO(mobileNo);
@@ -42,10 +42,8 @@ class UserService {
     try {
       const userFindByMobile = await this.user.findOne({ mobileNo: number });
       if (userFindByMobile) {
-        console.log("true :>> ", true);
         return true;
       } else {
-        console.log("false:>> ", false);
         return false;
       }
     } catch (err) {

@@ -22,4 +22,10 @@ functions:
       - http:
           path: user
           method: post
+  verifyOtp:
+    handler: app/handler.verifyOTP
+    events:
+      - http:
+          path: verifyOtp
+          method: post
  

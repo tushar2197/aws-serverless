@@ -1,4 +1,10 @@
-export default class userDTO {
-    mobileNo: string;
+class UserDTO {
+  mobileNo: string;
 }
-  
+
+class verifyOtpDTO {
+  mobileNo: string;
+  otp: number;
+}
+
+export { UserDTO, verifyOtpDTO };
