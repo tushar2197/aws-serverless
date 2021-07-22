@@ -7,7 +7,6 @@ class AuthService {
         otp,
         user: userid,
       };
-
       const token = new authModel(payload);
       return await token.save();
     } catch (error) {

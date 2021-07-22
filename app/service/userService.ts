@@ -11,12 +11,19 @@ class UserService {
    * Create book
    * @param params
    */
-  protected async createUser(params: userDto): Promise<object> {
+  protected async createUser(params: userDto): Promise<any> {
     try {
-      const result = await this.user.create({
-        mobileNo: params?.mobileNo,
-      });
-      return result;
+      const { mobileNo } = params;
+      const checkMobile: any = await this.findByMobileNO(mobileNo);
+      console.log("checkMobile :>> ", checkMobile);
+      if (checkMobile) {
+        throw new Error("mobile no already exists");
+      } else {
+        const result = await this.user.create({
+          mobileNo: params?.mobileNo,
+        });
+        return result;
+      }
     } catch (err) {
       console.error(err);
 
@@ -31,16 +38,19 @@ class UserService {
       throw err;
     }
   }
-  protected async findByMobileNO(number): Promise<object> {
+  protected async findByMobileNO(number): Promise<any> {
     try {
-      const userFindByMobile = await this.user.findOne(
-        { mobileNo: number },
-        { raw: true }
-      );
-      return userFindByMobile;
+      const userFindByMobile = await this.user.findOne({ mobileNo: number });
+      if (userFindByMobile) {
+        console.log("true :>> ", true);
+        return true;
+      } else {
+        console.log("false:>> ", false);
+        return false;
+      }
     } catch (err) {
       throw err;
     }
   }
 }
-export default UserService
+export default UserService;

@@ -1,10 +1,10 @@
-import { Response } from '../models/models/responseModel';
+import { Response } from "../models/models/responseModel";
 
 enum StatusCode {
   success = 200,
   failed = 400,
   validationError = 422,
-  internalserverError = 500
+  internalserverError = 500,
 }
 
 class Result {
@@ -23,7 +23,7 @@ class Result {
   /**
    * Serverless: According to the API Gateway specs, the body content must be stringified
    */
-  bodyToString () {
+  bodyToString() {
     return {
       statusCode: this.statusCode,
       body: JSON.stringify({
@@ -38,7 +38,6 @@ class Result {
 class MessageUtil {
   static success(data: object): Response {
     const result = new Result(StatusCode.success, 0, 'success', data);
-
     return result.bodyToString();
   }
 
