@@ -28,4 +28,10 @@ functions:
       - http:
           path: verifyOtp
           method: post
+  profileUpdate:
+    handler: app/handler.updateProfile
+    events:
+      - http:
+          path: profileUpdate
+          method: put
  

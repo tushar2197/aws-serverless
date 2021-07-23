@@ -1,10 +1,15 @@
 class UserDTO {
-  mobileNo: string;
+    mobileNo: string;
 }
 
 class verifyOtpDTO {
-  mobileNo: string;
-  otp: number;
+    mobileNo: string;
+    otp: number;
+}
+class profileUpdateDTO {
+    firstName: string;
+    lastName: string;
+    email: string;
 }
 
-export { UserDTO, verifyOtpDTO };
+export { UserDTO, verifyOtpDTO,profileUpdateDTO };

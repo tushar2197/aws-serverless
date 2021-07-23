@@ -40,6 +40,7 @@ class MessageUtil {
     const result = new Result(StatusCode.success, 0, 'success', data);
     return result.bodyToString();
   }
+  
 
   static error(code: number = 1000, message: string) {
     const result = new Result(StatusCode.success, code, message);
