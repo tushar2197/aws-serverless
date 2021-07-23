@@ -1,4 +1,3 @@
-import { Model } from 'mongoose';
 import { messageUtils, otpUtils } from '../utils';
 import userService from '../service/userService';
 import AuthService from '../service/authservice';
@@ -43,7 +42,7 @@ export class UserController extends userService {
             } else {
                 const verifyOtp = await this.auth.verifyOtp(mobileNo, otp);
                 if (verifyOtp) {
-                    return messageUtils.success(checkMobileNo);
+                    return messageUtils.success(verifyOtp);
                 } else {
                     throw new Error('otp is invalid');
                 }
