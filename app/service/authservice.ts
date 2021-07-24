@@ -19,15 +19,13 @@ class AuthService {
   }
 
   async verifyOtp(mobileNo: string, otp: number) {
-    try {
-      // Find user details using mobile no
-      const userMobile: any = await this.userService.findByMobileNO(mobileNo);
-      // Get user otp details if exists
-      const userOtp: any = await authModel.findOne({
-        user: userMobile._id,
-      });
-      console.log("userOtp :>> ", userOtp);
-      console.log("userOtp.otp === otp :>> ", userOtp.otp === otp);
+    // Find user details using mobile no
+    const userMobile: any = await this.userService.findByMobileNO(mobileNo);
+    // Get user otp details if exists
+    const userOtp: any = await authModel.findOne({
+      user: userMobile._id,
+    });
+    if (userOtp != null) {
       if (userOtp.otp === otp) {
         // Mobile Number verified
         this.otpRemove(userMobile._id);
@@ -37,27 +35,21 @@ class AuthService {
         // Mobile Number is not verified
         throw new Error("otp is invalid");
       }
-    } catch (error) {
-      return error;
+    } else {
+      throw new Error("otp is expiry");
     }
   }
   async otpRemove(userId: string) {
-    try {
-      // Delete user otp after verify
-      const userOtpDelete: any = await authModel.deleteOne({
-        user: Types.ObjectId(userId),
-      });
-      console.log("userOtpDelete :>> ", userOtpDelete);
-      if (userOtpDelete) {
-        // otp is delete after verified
-        return userOtpDelete;
-      } else {
-        // otp deletion failed
-        throw new Error("otp is not found");
-      }
-    } catch (error) {
-      console.log(error);
-      return error;
+    // Delete user otp after verify
+    const userOtpDelete: any = await authModel.deleteOne({
+      user: Types.ObjectId(userId),
+    });
+    if (userOtpDelete) {
+      // otp is delete after verified
+      return userOtpDelete;
+    } else {
+      // otp deletion failed
+      throw new Error("otp is not found");
     }
   }
 }

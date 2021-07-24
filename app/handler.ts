@@ -22,3 +22,7 @@ export const verifyOTP: Handler = (event: any) => {
 export const updateProfile: Handler = (event: any) => {
     return userController.userProfileUpdate(event);
 };
+export const loginUser: Handler = (event: any) => {
+    
+    return userController.loginUser(event)
+}

@@ -12,6 +12,10 @@ export class JWT {
     );
     return token;
   }
+  static async tokenDecrypt(token: string) {
+    let finalToken: string = token.substring(7);
+    return finalToken;
+  }
 }
 
 export default JWT;

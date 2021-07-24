@@ -7,7 +7,7 @@ provider:
     NODE_ENV: dev
 
 plugins:
-  - serverless-plugin-typescript 
+  - serverless-plugin-typescript
   - serverless-offline
   - serverless-dotenv-plugin
 
@@ -28,10 +28,15 @@ functions:
       - http:
           path: verifyOtp
           method: post
+  login:
+    handler: app/handler.loginUser
+    events:
+      - http:
+          path: login
+          method: post
   profileUpdate:
     handler: app/handler.updateProfile
     events:
       - http:
           path: profileUpdate
           method: put
- 
