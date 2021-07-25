@@ -40,3 +40,6 @@ functions:
       - http:
           path: profileUpdate
           method: put
+          authorizer: authorizerFunc
+  authorizerFunc:
+    handler: app/handler.authorize
