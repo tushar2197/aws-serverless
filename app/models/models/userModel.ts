@@ -12,15 +12,12 @@ const UserSchema = new Schema(
     },
     mobileNo: {
       type: String,
-      unique:true
+      unique:true,
+      comment:"mobile number like +911234567899"
     },
     email: {
       type: String,
       default:null
-    },
-    contryCode: {
-      type: String,
-      default:'+91'
     },
     isActive: {
       type: Boolean,
