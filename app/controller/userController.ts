@@ -1,9 +1,8 @@
 import { jwtUtils, messageUtils, otpUtils } from "../utils";
 import userService from "../service/userService";
-import AuthService from "../service/authservice";
+import { authService } from "../service/authservice";
 import { UserDTO, verifyOtpDTO, profileUpdateDTO } from "../models";
 export class UserController extends userService {
-  auth = new AuthService();
   /**
    * Create user
    * @param {*} event
@@ -14,7 +13,7 @@ export class UserController extends userService {
       let result: any = await this.createUser(params);
       if (result) {
         const otp = await otpUtils.OTP();
-        await this.auth.createotp(result._id, otp);
+        await authService.createotp(result._id, otp);
 
         return messageUtils.successMessage();
       } else {
@@ -36,7 +35,7 @@ export class UserController extends userService {
       if (!checkMobileNo) {
         throw new Error("mobile no is not found");
       } else {
-        const token: string = await this.auth.verifyOtp(mobileNo, otp);
+        const token: string = await authService.verifyOtp(mobileNo, otp);
         console.log("token :>> ", token);
         if (token != "") {
           const token = await jwtUtils.createJwtToken(checkMobileNo);
@@ -77,7 +76,7 @@ export class UserController extends userService {
     const checkmobileNo: any = await this.findByMobileNO(mobileNo);
     if (checkmobileNo) {
       const otp = await otpUtils.OTP();
-      await this.auth.createotp(checkmobileNo._id, otp);
+      await authService.createotp(checkmobileNo._id, otp);
       const token = jwtUtils.createJwtToken(checkmobileNo);
       let result = {
         ...checkmobileNo._doc,
@@ -89,5 +88,5 @@ export class UserController extends userService {
       throw new Error("mobile Number not found");
     }
   }
-  
+
 }

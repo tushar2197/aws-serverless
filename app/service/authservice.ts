@@ -11,6 +11,7 @@ class AuthService {
         otp,
         user: userid,
       };
+      console.log('otp :>> ', payload);
       const token = new authModel(payload);
       return await token.save();
     } catch (error) {
@@ -54,4 +55,4 @@ class AuthService {
   }
 }
 
-export default AuthService;
+export const authService = new AuthService();

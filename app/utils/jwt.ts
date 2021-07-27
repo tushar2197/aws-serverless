@@ -13,7 +13,8 @@ export class JWT {
     return token;
   }
   static async tokenDecrypt(token: string) {
-    
+    // console.log('token :>> ', token);
+    return jwt.verify(token, jwtSecret);
   }
 }
 

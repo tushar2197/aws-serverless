@@ -1,10 +1,11 @@
-import { jwtUtils } from '../utils'
+import { jwtUtils, messageUtils } from '../utils'
 class JwtMiddelware {
     public async tokenDecrypt(jwtToken) {
-        jwtToken.replace('Bearer ', "")
-        const tokenDecrypt = await jwtUtils.tokenDecrypt(jwtToken)
-        console.log('tokenDecrypt :>> ', tokenDecrypt);
-        return tokenDecrypt;
+        console.log(`true`, true)
+
+     const ExtractJwt=   jwtToken.split(" ");
+        const tokenDecrypt = await jwtUtils.tokenDecrypt(ExtractJwt[1])
+        return messageUtils.success(tokenDecrypt);
     }
 }
 export default JwtMiddelware;

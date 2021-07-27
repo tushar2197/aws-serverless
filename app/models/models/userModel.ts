@@ -4,24 +4,22 @@ const UserSchema = new Schema(
   {
     firstName: {
       type: String,
-      default:null
+      default: null
     },
     lastName: {
       type: String,
-      default:null
+      default: null
     },
     mobileNo: {
       type: String,
-      unique:true
+      unique: true,
+      comment: "mobile number like +911234567899"
     },
     email: {
       type: String,
-      default:null
+      default: null
     },
-    contryCode: {
-      type: String,
-      default:'+91'
-    },
+
     isActive: {
       type: Boolean,
       default: true,

@@ -2,7 +2,7 @@ import { ObjectId } from "mongoose";
 import { UserDTO } from "../models";
 import { Types } from "mongoose";
 import { userModel } from "../models";
-
+import { MobileNoCheckUtils } from '../utils'
 class UserService {
   /**
    * Create book
@@ -11,6 +11,12 @@ class UserService {
   protected async createUser(params: UserDTO): Promise<any> {
     try {
       const { mobileNo } = params;
+
+      const mobileNoCheck = await MobileNoCheckUtils.verify(mobileNo);
+      if (mobileNoCheck === false)
+        throw new Error(
+          'mobile no is invalid please enter valid mobileNumber',
+        );
       const checkMobile: any = await this.findByMobileNO(mobileNo);
       if (checkMobile) {
         throw new Error("mobile no already exists");
@@ -41,7 +47,6 @@ class UserService {
         return false;
       }
     } catch (err) {
-      console.log("err :>> ", err);
       throw err;
     }
   }
